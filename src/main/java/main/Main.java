@@ -82,7 +82,11 @@ public class Main {
         System.out.println("Введите значение поля " + fields[2]);
         Object thirdfield = scanner.nextLine();
         // Затычка для создания объекта-примера
+        int indexOfRequiredObject = 1;
         // Затычка для бинарного поиска (бинарный поиск в другой ветке, Заапдейчу после слияния)
+
+        if(indexOfRequiredObject < 0){System.out.println("Подобный объект не найден");}
+            else {System.out.println("Искомый объект находится на " +  indexOfRequiredObject + 1 + " месте в отсортированном списке");}
 
     }
 
