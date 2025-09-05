@@ -67,7 +67,23 @@ public class Main {
             }
             System.out.println();
             viewArrayObject(objects);
+            viewBinarySearch(objects);
         }
+    }
+
+    private static void viewBinarySearch(ArrayList<Object> objects) {
+        System.out.println("Для поиска индекса объекта требуются значения его полей");
+        Field[] fields = objects.get(0).getClass().getDeclaredFields();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите значение поля " + fields[0]);
+        Object firstfield = scanner.nextLine();
+        System.out.println("Введите значение поля " + fields[1]);
+        Object secondfield = scanner.nextLine();
+        System.out.println("Введите значение поля " + fields[2]);
+        Object thirdfield = scanner.nextLine();
+        // Затычка для создания объекта-примера
+        // Затычка для бинарного поиска (бинарный поиск в другой ветке, Заапдейчу после слияния)
+
     }
 
     private static void viewArrayObject(ArrayList<Object> objects) throws Exception {
