@@ -16,7 +16,7 @@ public class RandomInput {
         for (int i = 0; i < n; i++) {
             Bus bus = new Bus.Builder()
                 .setNumber("BUS" + (100 + i))
-                .setModel("Model" + (char)('A'+random.nextInt(5)))
+                .setModel("Model" + (char)('A' + random.nextInt(5)))
                 .setMileage(10000 + random.nextInt(100000))
                 .build();
             buses.add(bus);
@@ -30,7 +30,7 @@ public class RandomInput {
             User user = new User.Builder()
                 .setName("User" + i)
                 .setPassword("Pass" + random.nextInt(10000))
-                .setEmail("user"+i+"@mail.com")
+                .setEmail("user" + i + "@mail.com")
                 .build();
             users.add(user);
         }
@@ -41,9 +41,9 @@ public class RandomInput {
         List<Student> students = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             Student student = new Student.Builder()
-                .setGroupNumber("G" + (100+i))
+                .setGroupNumber(100 + i)
                 .setAverageScore(Math.round((2.0 + random.nextDouble() * 3) * 100.0) / 100.0)
-                .setRecordBookNumber("RB" + (1000+i))
+                .setRecordBookNumber("RB" + (1000 + i))
                 .build();
             students.add(student);
         }

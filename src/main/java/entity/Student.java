@@ -1,63 +1,56 @@
 package entity;
 
-public class Student {
-    private String groupNumber;
-    private double averageScore;
-    private String recordBookNumber;
+
+public class Student implements Comparable<Student> {
+
+    private final int groupNumber;
+    private final double averageScore;
+    private final String gradeBookNumber;
 
     private Student(Builder builder) {
         this.groupNumber = builder.groupNumber;
         this.averageScore = builder.averageScore;
-        this.recordBookNumber = builder.recordBookNumber;
+        this.gradeBookNumber = builder.gradeBookNumber;
     }
 
-    public String getGroupNumber() {
-        return groupNumber;
-    }
+    public int getGroupNumber() { return groupNumber; }
 
-    public double getAverageScore() {
-        return averageScore;
-    }
+    public double getAverageScore() { return averageScore; }
 
-    public String getRecordBookNumber() {
-        return recordBookNumber;
-    }
+    public String getGradeBookNumber() { return gradeBookNumber; }
 
-    public static Builder builder() {
-        return new Builder();
+    @Override
+    public int compareTo(Student student) {
+        return Integer.compare(this.groupNumber, student.groupNumber);
     }
 
     public static class Builder {
-        private String groupNumber;
-        private double averageScore;
-        private String recordBookNumber;
+    private int groupNumber;
+    private double averageScore;
+    private String gradeBookNumber;
 
-        public Builder setGroupNumber(String groupNumber) {
-            this.groupNumber = groupNumber;
-            return this;
+    public Builder setGroupNumber(int groupNumber) {
+        if (groupNumber <= 0) throw new IllegalArgumentException("Номер группы должен быть положительным");
+        this.groupNumber = groupNumber;
+        return this;
+    }
+    public Builder setAverageScore(double averageScore) {
+        if (averageScore < 0 || averageScore > 5)
+            throw new IllegalArgumentException("Средний балл должен быть в диапазоне от 0 до 5");
+        this.averageScore = averageScore;
+        return this;
+    }
+    public Builder setRecordBookNumber(String gradeBookNumber) {
+        if (gradeBookNumber == null || gradeBookNumber.isEmpty())
+            throw new IllegalArgumentException("Укажите номер зачетной книжки");
+        this.gradeBookNumber = gradeBookNumber;
+        return this;
+    }
+    public Student build() {
+        if (gradeBookNumber == null || gradeBookNumber.isEmpty() || groupNumber <= 0 || averageScore < 0 || averageScore > 5) {
+            throw new IllegalStateException("Необходимо указать номер зачетной книжки, положительный номер группы и средний балл 0-5");
         }
-
-        public Builder setAverageScore(double averageScore) {
-            this.averageScore = averageScore;
-            return this;
-        }
-
-        public Builder setRecordBookNumber(String recordBookNumber) {
-            this.recordBookNumber = recordBookNumber;
-            return this;
-        }
-
-        public Student build() {
-            if (groupNumber == null || groupNumber.isEmpty()) {
-                throw new IllegalStateException("Номер группы не может быть пустым");
-            }
-            if (averageScore < 0 || averageScore > 5) {
-                throw new IllegalStateException("Средний балл должен быть в диапазоне 0-5");
-            }
-            if (recordBookNumber == null || recordBookNumber.isEmpty()) {
-                throw new IllegalStateException("Номер зачетной книжки не может быть пустым");
-            }
-            return new Student(this);
-        }
+        return new Student(this);
+    }
     }
 }
