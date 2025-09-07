@@ -1,114 +1,93 @@
 package main;
 
-import input.ManualInput;
-import input.RandomInput;
-import input.InputFromFile;  // импорт методов загрузки из файлов
 import entity.Bus;
 import entity.Student;
 import entity.User;
-import java.util.List;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.io.InputStream;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
-        boolean exit = false;
-
-        while (!exit) {
-            System.out.println("Выберите тип данных для работы:");
-            System.out.println("1 - Автобусы");
-            System.out.println("2 - Пользователи");
-            System.out.println("3 - Студенты");
-            System.out.println("0 - Выход");
-
-            int type = ManualInput.readIntWithPrompt(scanner, "Введите выбор: ");
-
-            if (type == 0) {
-                exit = true;
-                System.out.println("Выход из программы.");
-                break;
+        while (true){
+            System.out.println("Выберите тип объектов:\n" +
+                    "0) Закончить работу с программой\n" +
+                    "1) Автобус(класс Bus)\n" +
+                    "2) Студент(класс Student)\n" +
+                    "3) Пользователь(класс User)\n");
+            String answer = scanner.nextLine();
+            switch (answer){
+                case "0": System.exit(1);
+                case "1":
+                    workWithObject(new Bus()); break;
+                case "2":
+                    workWithObject(new Student()); break;
+                case "3":
+                    workWithObject(new User()); break;
+                default:
+                    System.out.println("Введен неверный тип"); break;
             }
-
-            System.out.println("Выберите способ заполнения:");
-            System.out.println("1 - Ручной ввод");
-            System.out.println("2 - Генерация данных");
-            System.out.println("3 - Загрузка из файла ресурсов");
-
-            int inputMethod = ManualInput.readIntWithPrompt(scanner, "Введите выбор способа: ");
-
-            switch (type) {
-                case 1 -> {
-                    List<Bus> buses;
-                    int n = ManualInput.readIntWithPrompt(scanner, "Введите количество элементов: ");
-                    if (inputMethod == 1) {
-                        buses = ManualInput.inputBuses(n, scanner);
-                    } else if (inputMethod == 2) {
-                        buses = RandomInput.generateBuses(n);
-                    } else if (inputMethod == 3) {
-                        // Загрузка из файла
-                        InputStream is = Main.class.getClassLoader().getResourceAsStream("buses.txt");
-                        if (is == null) {
-                            System.out.println("Файл не найден в resources.");
-                            continue;
-                        }
-                        buses = InputFromFile.readBusesFromInputStream(is);
-                    } else {
-                        System.out.println("Неверный выбор способа заполнения.");
-                        continue;
-                    }
-                    System.out.println("Результат:");
-                    buses.forEach(bus -> System.out.printf("Номер: %s, Модель: %s, Пробег: %d%n",
-                            bus.getNumber(), bus.getModel(), bus.getMileage()));
-                }
-                case 2 -> {
-                    List<User> users;
-                    int n = ManualInput.readIntWithPrompt(scanner, "Введите количество элементов: ");
-                    if (inputMethod == 1) {
-                        users = ManualInput.inputUsers(n, scanner);
-                    } else if (inputMethod == 2) {
-                        users = RandomInput.generateUsers(n);
-                    } else if (inputMethod == 3) {
-                        InputStream is = Main.class.getClassLoader().getResourceAsStream("users.txt");
-                        if (is == null) {
-                            System.out.println("Файл не найден в resources.");
-                            continue;
-                        }
-                        users = InputFromFile.readUsersFromInputStream(is);
-                    } else {
-                        System.out.println("Неверный выбор способа заполнения.");
-                        continue;
-                    }
-                    System.out.println("Результат:");
-                    users.forEach(user -> System.out.printf("Имя: %s, Email: %s, Пароль: %s%n",
-                            user.getName(), user.getEmail(), user.getPassword()));
-                }
-                case 3 -> {
-                    List<Student> students;
-                    int n = ManualInput.readIntWithPrompt(scanner, "Введите количество элементов: ");
-                    if (inputMethod == 1) {
-                        students = ManualInput.inputStudents(n, scanner);
-                    } else if (inputMethod == 2) {
-                        students = RandomInput.generateStudents(n);
-                    } else if (inputMethod == 3) {
-                        InputStream is = Main.class.getClassLoader().getResourceAsStream("students.txt");
-                        if (is == null) {
-                            System.out.println("Файл не найден в resources.");
-                            continue;
-                        }
-                        students = InputFromFile.readStudentsFromInputStream(is);
-                    } else {
-                        System.out.println("Неверный выбор способа заполнения.");
-                        continue;
-                    }
-                    System.out.println("Результат:");
-                    students.forEach(student -> System.out.printf("Группа: %d, Средний балл: %.2f, Зачетка: %s%n",
-                            student.getGroupNumber(), student.getAverageScore(), student.getGradeBookNumber()));
-                }
-                default -> System.out.println("Неверный выбор типа данных.");
+        }
+    }
+    static void workWithObject(Object object) throws Exception {
+        while (true){
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Работа с классом: " + object.getClass().getSimpleName());
+            System.out.println("Выберите способ заполнения списка объектов:\n" +
+                    "0) Вернуться к выбору класса\n" +
+                    "1) Из файла\n" +
+                    "2) Вручную\n" +
+                    "3) Заполнить случайными значениями");
+            String answer = scanner.nextLine();
+            ArrayList<Object> objects = new ArrayList<>();
+            switch (answer){
+                case "0": return;
+                case "1":
+                    System.out.println("Заполнение из файла:");
+                    //Затычка для метода ввода из файла
+                    break;
+                case "2":
+                    System.out.println("Заполнение вручную:");
+                    //Затычка для метода ввода вручную
+                    break;
+                case "3":
+                    System.out.println("Заполнение случайными значениями:");
+                    //Затычка для метода рандомного ввода
+                    break;
+                default:
+                    System.out.println("Введен неверный ответ"); break;
+            }
+            System.out.println("Готовый список объектов (не сортированный):");
+            Field[] fields = object.getClass().getDeclaredFields();
+            for(Field field : fields){
+                System.out.printf("%-30s", field.getName());
             }
             System.out.println();
-        }    
-        scanner.close();
+            viewArrayObject(objects);
+        }
+    }
+
+    private static void viewArrayObject(ArrayList<Object> objects) throws Exception {
+        switch (objects.get(0).getClass().getSimpleName()){
+            case "Bus": viewArrayBus(objects); break;
+            case "Student": viewArrayStudent(objects); break;
+            case "User": viewArrayUser(objects); break;
+            default: throw new Exception("Получен неподдерживаемый тип файлов");
+        }
+    }
+
+    private static void viewArrayBus(ArrayList<Object> objects) {
+        System.out.println("*вывод массива автобусов*");
+    }
+
+    private static void viewArrayStudent(ArrayList<Object> objects) {
+        System.out.println("*вывод массива студентов*");
+    }
+
+    private static void viewArrayUser(ArrayList<Object> objects) {
+        System.out.println("*вывод массива пользователей*");
     }
 }
