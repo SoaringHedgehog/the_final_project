@@ -1,64 +1,62 @@
 package entity;
 
-public class User implements Comparable<User> {
-    private final String name;
-    private final String password;
-    private final String email;
 
-    private User(Builder builder) {
-        this.name = builder.name;
-        this.password = builder.password;
-        this.email = builder.email;
+public class Student implements Comparable<Student> {
+
+    private final int groupNumber;
+    private final double averageScore;
+    private final int gradeBookNumber;
+
+    private Student(Builder builder) {
+        this.groupNumber = builder.groupNumber;
+        this.averageScore = builder.averageScore;
+        this.gradeBookNumber = builder.gradeBookNumber;
     }
 
-    public String getName() { return name; }
+    public int getGroupNumber() { return groupNumber; }
 
-    public String getPassword() { return password; }
+    public double getAverageScore() { return averageScore; }
 
-    public String getEmail() { return email; }
+    public int getGradeBookNumber() { return gradeBookNumber; }
 
     @Override
-    public int compareTo(User other) {
-        int result = this.name.compareTo(other.name);
+    public int compareTo(Student other) {
+        int result = Integer.compare(this.groupNumber, other.groupNumber);
         if (result != 0) return result;
 
-        result = this.password.compareTo(other.password);
+        result = Double.compare(this.averageScore, other.averageScore);
         if (result != 0) return result;
 
-        return this.email.compareTo(other.email);
+        return Integer.compare(this.gradeBookNumber, other.gradeBookNumber);
     }
 
     public static class Builder {
-        private String name;
-        private String password;
-        private String email;
+        private int groupNumber;
+        private double averageScore;
+        private int gradeBookNumber;
 
-        public Builder setName(String name) {
-            if (name == null || name.isEmpty())
-                throw new IllegalArgumentException("Введите имя");
-            this.name = name;
+        public Builder setGroupNumber(int groupNumber) {
+            if (groupNumber <= 0) throw new IllegalArgumentException("Номер группы должен быть положительным");
+            this.groupNumber = groupNumber;
             return this;
         }
-
-        public Builder setPassword(String password) {
-            if (password == null || password.isEmpty())
-                throw new IllegalArgumentException("Введите пароль");
-            this.password = password;
+        public Builder setAverageScore(double averageScore) {
+            if (averageScore < 0 || averageScore > 5)
+                throw new IllegalArgumentException("Средний балл должен быть в диапазоне от 0 до 5");
+            this.averageScore = averageScore;
             return this;
         }
-
-        public Builder setEmail(String email) {
-            if (email == null || email.isEmpty())
-                throw new IllegalArgumentException("Введите почту");
-            this.email = email;
+        public Builder setGradeBookNumber(int gradeBookNumber) {
+            if (gradeBookNumber <= 0)
+                throw new IllegalArgumentException("Номер зачетной книжки должен быть положительным");
+            this.gradeBookNumber = gradeBookNumber;
             return this;
         }
-
-        public User build() {
-            if (name == null || password == null || email == null) {
-                throw new IllegalStateException("Необходимо указать имя, пароль и почту");
+        public Student build() {
+            if (groupNumber <= 0 || averageScore < 0 || averageScore > 5 || gradeBookNumber <= 0) {
+                throw new IllegalStateException("Необходимо указать положительный номер группы, номер зачетной книжки и средний балл 0-5");
             }
-            return new User(this);
+            return new Student(this);
         }
     }
 }
