@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class ManualInput {
 
-    public static List<Bus> inputBuses(int n, Scanner scanner) {
-        List<Bus> buses = new ArrayList<>();
+    public static ArrayList<Comparable> inputBuses(int n, Scanner scanner) {
+        ArrayList<Comparable> buses = new ArrayList<>();
         for (int i = 0; i < n; ) {
             try {
                 System.out.print("Введите номер автобуса: ");
@@ -49,8 +49,8 @@ public class ManualInput {
         return buses;
     }
 
-    public static List<User> inputUsers(int n, Scanner scanner) {
-        List<User> users = new ArrayList<>();
+    public static ArrayList<Comparable> inputUsers(int n, Scanner scanner) {
+        ArrayList<Comparable> users = new ArrayList<>();
         for (int i = 0; i < n; ) {
             try {
                 System.out.print("Введите имя пользователя: ");
@@ -76,8 +76,8 @@ public class ManualInput {
         return users;
     }
 
-    public static List<Student> inputStudents(int n, Scanner scanner) {
-        List<Student> students = new ArrayList<>();
+    public static ArrayList<Comparable> inputStudents(int n, Scanner scanner) {
+        ArrayList<Comparable> students = new ArrayList<>();
         for (int i = 0; i < n; ) {
             try {
                 System.out.print("Введите номер группы: ");
