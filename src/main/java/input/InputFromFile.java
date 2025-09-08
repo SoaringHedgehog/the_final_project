@@ -13,8 +13,8 @@ import java.util.List;
 
 public class InputFromFile {
 
-    public static List<Bus> readBusesFromInputStream(InputStream is) {
-        List<Bus> buses = new ArrayList<>();
+    public static ArrayList<Comparable> readBusesFromInputStream(InputStream is) {
+        ArrayList<Comparable> buses = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -40,8 +40,8 @@ public class InputFromFile {
         return buses;
     }
 
-    public static List<User> readUsersFromInputStream(InputStream is) {
-        List<User> users = new ArrayList<>();
+    public static ArrayList<Comparable> readUsersFromInputStream(InputStream is) {
+        ArrayList<Comparable> users = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -67,8 +67,8 @@ public class InputFromFile {
         return users;
     }
 
-    public static List<Student> readStudentsFromInputStream(InputStream is) {
-        List<Student> students = new ArrayList<>();
+    public static ArrayList<Comparable> readStudentsFromInputStream(InputStream is) {
+        ArrayList<Comparable> students = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
             String line;
             while ((line = reader.readLine()) != null) {

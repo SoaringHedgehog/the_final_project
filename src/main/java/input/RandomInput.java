@@ -11,11 +11,11 @@ import entity.Student;
 public class RandomInput {
     private static Random random = new Random();
 
-    public static List<Bus> generateBuses(int n) {
-        List<Bus> buses = new ArrayList<>();
+    public static ArrayList<Comparable> generateBuses(int n) {
+        ArrayList<Comparable> buses = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             Bus bus = new Bus.Builder()
-                .setNumber(100 + i)
+                .setNumber(random.nextInt(100))
                 .setModel("Model" + (char)('A' + random.nextInt(5)))
                 .setMileage(10000 + random.nextInt(100000))
                 .build();
@@ -24,11 +24,11 @@ public class RandomInput {
         return buses;
     }
 
-    public static List<User> generateUsers(int n) {
-        List<User> users = new ArrayList<>();
+    public static ArrayList<Comparable> generateUsers(int n) {
+        ArrayList<Comparable> users = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             User user = new User.Builder()
-                .setName("User" + i)
+                .setName("User" + random.nextInt())
                 .setPassword("Pass" + random.nextInt(10000))
                 .setEmail("user" + i + "@mail.com")
                 .build();
@@ -37,13 +37,13 @@ public class RandomInput {
         return users;
     }
 
-    public static List<Student> generateStudents(int n) {
-        List<Student> students = new ArrayList<>();
+    public static ArrayList<Comparable> generateStudents(int n) {
+        ArrayList<Comparable> students = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             Student student = new Student.Builder()
-                .setGroupNumber(100 + i)
+                .setGroupNumber(100 + random.nextInt(100))
                 .setAverageScore(Math.round((2.0 + random.nextDouble() * 3) * 100.0) / 100.0)
-                .setGradeBookNumber(1000 + i)
+                .setGradeBookNumber(random.nextInt(1000))
                 .build();
             students.add(student);
         }
