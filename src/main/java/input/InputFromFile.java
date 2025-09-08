@@ -94,4 +94,3 @@ public class InputFromFile {
         return students;
     }
 }
-я
