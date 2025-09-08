@@ -1,0 +1,5 @@
+User1,user1@mail.com,pass123
+User2,user2@mail.com,P@ssword1
+User3,user3@mail.com,password3
+User4,user4@mail.com,mysecret
+User5,user5@mail.com,abc123
