@@ -22,20 +22,20 @@ public class Main {
             switch (answer){
                 case "0": System.exit(1);
                 case "1":
-                    workWithObject(new Bus()); break;
+                    workWithObject("Bus"); break;
                 case "2":
-                    workWithObject(new Student()); break;
+                    workWithObject("Student"); break;
                 case "3":
-                    workWithObject(new User()); break;
+                    workWithObject("User"); break;
                 default:
                     System.out.println("Введен неверный тип"); break;
             }
         }
     }
-    static void workWithObject(Object object) throws Exception {
+    static void workWithObject(String className) throws Exception {
         while (true){
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Работа с классом: " + object.getClass().getSimpleName());
+            System.out.println("Работа с классом: " + className);
             System.out.println("Выберите способ заполнения списка объектов:\n" +
                     "0) Вернуться к выбору класса\n" +
                     "1) Из файла\n" +
@@ -47,21 +47,33 @@ public class Main {
                 case "0": return;
                 case "1":
                     System.out.println("Заполнение из файла:");
-                    //Затычка для метода ввода из файла
+                    switch (className){
+                        case "Bus": /*Затычка для метода ввода из файла*/ break;
+                        case "Student": /*Затычка для метода ввода из файла*/ break;
+                        case "User": /*Затычка для метода ввода из файла*/ break;
+                    }
                     break;
                 case "2":
                     System.out.println("Заполнение вручную:");
-                    //Затычка для метода ввода вручную
+                    switch (className){
+                        case "Bus": /*Затычка для метода ввода вручную*/ break;
+                        case "Student": /*Затычка для метода ввода вручную*/ break;
+                        case "User": /*Затычка для метода ввода вручную*/ break;
+                    }
                     break;
                 case "3":
                     System.out.println("Заполнение случайными значениями:");
-                    //Затычка для метода рандомного ввода
+                    switch (className){
+                        case "Bus": /*Затычка для метода рандомного ввода*/ break;
+                        case "Student": /*Затычка для метода рандомного ввода*/ break;
+                        case "User": /*Затычка для метода рандомного ввода*/ break;
+                    }
                     break;
                 default:
                     System.out.println("Введен неверный ответ"); break;
             }
             System.out.println("Готовый список объектов (не сортированный):");
-            Field[] fields = object.getClass().getDeclaredFields();
+            Field[] fields = objects.getFirst().getClass().getDeclaredFields();
             for(Field field : fields){
                 System.out.printf("%-30s", field.getName());
             }
