@@ -2,8 +2,9 @@ package algorithm;
 
 import java.util.ArrayList;
 
-public class SelectionSort<T extends Comparable<T>> {
+public class SelectionSort<T extends Comparable<T>> implements Sort<T> {
 
+    @Override
     public void sort(ArrayList<T> arr) {
         for (int i = 0; i < arr.size() - 1; i++) {
             int minIndex = i;
