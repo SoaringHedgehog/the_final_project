@@ -25,7 +25,6 @@ public class CustomSort<T> implements Sort<T>{
                     minIndex = j;
                 }
             }
-
             if (minIndex != i) {
                 T temp = arr.get(i);
                 arr.set(i, arr.get(minIndex));

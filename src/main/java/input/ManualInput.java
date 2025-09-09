@@ -33,7 +33,6 @@ public class ManualInput {
                 }
                 int mileage = scanner.nextInt();
                 scanner.nextLine();
-
                 Bus bus = new Bus.Builder()
                         .setNumber(number)
                         .setModel(model)
