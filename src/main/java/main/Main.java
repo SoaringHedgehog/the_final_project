@@ -119,17 +119,17 @@ public class Main {
             ArrayList<Comparable> sortedObjects = null;
             switch (objects.getFirst().getClass().getSimpleName()){
                 case "Bus":
-                    ParallelSorter<Bus> busSort = new ParallelSorter<>();
+                    ParallelSorter<Bus> busSort = new ParallelSorter<>(4);
                     busSort.sort(objects);
                     sortedObjects = new ArrayList<>(objects);
                     break;
                 case "Student":
-                    ParallelSorter<Student> studentSort = new ParallelSorter<>();
+                    ParallelSorter<Student> studentSort = new ParallelSorter<>(4);
                     studentSort.sort(objects);
                     sortedObjects = new ArrayList<>(objects);
                     break;
                 case "User":
-                    ParallelSorter<User> userSort = new ParallelSorter<>();
+                    ParallelSorter<User> userSort = new ParallelSorter<>(4);
                     userSort.sort(objects);
                     sortedObjects = new ArrayList<>(objects);
                     break;
@@ -168,7 +168,7 @@ public class Main {
                 case "4":
                     System.out.println("Сколько потоков использовать?");
                     int numThreads = scanner.nextInt();
-                    System.out.println("Количество вхождений элемента в коллекции: " + ThreadCounter.countOccurrences(sortedObjects, reqObject, numThreads));
+                    System.out.println("Количество вхождений элемента " + reqObject.toString() + "в коллекции: " + ThreadCounter.countOccurrences(sortedObjects, reqObject, numThreads));
                     break;
                 default:
                     System.out.println("Такого варианта нет\n");

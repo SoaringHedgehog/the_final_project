@@ -1,8 +1,9 @@
 package algorithm;
 import java.util.*;
 
+
 public class ThreadCounter {
-    public static <T> int countOccurrences(ArrayList<T> list, T element, int numThreads) throws InterruptedException {
+    public static <T> int countOccurrences(List<T> list, T element, int numThreads) throws InterruptedException {
         int size = list.size();
         int elementsPerThread = (int) Math.ceil((double) size / numThreads);
 
@@ -20,24 +21,27 @@ public class ThreadCounter {
                 public void run() {
                     int count = 0;
                     for (int j = start; j < end; j++) {
-                        if (list.get(j).equals(element)) {
+                        T current = list.get(j);
+                        if (((Comparable<T>) current).compareTo(element) == 0) {
                             count++;
                         }
                     }
                     results[threadIndex] = count;
                 }
             });
+
             threads[i].start();
         }
+
         for (int i = 0; i < threads.length; i++) {
             threads[i].join();
         }
+
         int total = 0;
 
         for (int i = 0; i < results.length; i++) {
             total = total + results[i];
         }
-        System.out.println("Элемент \"" + element + "\" встречается " + total + " раз(а).");
         return total;
     }
 }

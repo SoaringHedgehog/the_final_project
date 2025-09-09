@@ -30,6 +30,10 @@ public class Student implements Comparable<Student> {
         return Integer.compare(this.gradeBookNumber, other.gradeBookNumber);
     }
 
+    public String toString(){
+        return "[\n\tНомер группы: " + getGroupNumber() + ",\n\tСредняя оценка: " + getAverageScore() + ",\n\tНомер зачётки: " + getGradeBookNumber() + "]\n";
+    }
+
     public static class Builder {
         private int groupNumber;
         private double averageScore;

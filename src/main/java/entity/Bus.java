@@ -28,6 +28,11 @@ public class Bus implements Comparable<Bus> {
         return Integer.compare(this.mileage, other.mileage);
     }
 
+    @Override
+    public String toString(){
+        return "\n\t[\n\tНомер автобуса: " + getNumber() + ",\n\tМодель автобуса: " + getModel() + ",\n\tПробег: " + getMileage() + "\n\t]\n";
+    }
+
     public static class Builder {
         private int number;
         private String model;
