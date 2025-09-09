@@ -11,6 +11,7 @@ import input.*;
 
 import input.StreamRandomInput;
 import output.FileWriterUtil;
+import thread.ParallelSorter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -101,25 +102,19 @@ public class Main {
             ArrayList<Comparable> sortedObjects = null;
             switch (objects.getFirst().getClass().getSimpleName()){
                 case "Bus":
-                    SelectionSort<Bus> busSort = new SelectionSort<>();
-                    @SuppressWarnings("unchecked")
-                    ArrayList<Bus> buses = (ArrayList<Bus>) (ArrayList<?>) objects;
-                    busSort.sort(buses);
-                    sortedObjects = new ArrayList<>(buses);
+                    ParallelSorter<Bus> busSort = new ParallelSorter<>();
+                    busSort.sort(objects);
+                    sortedObjects = new ArrayList<>(objects);
                     break;
                 case "Student":
-                    SelectionSort<Student> studentSort = new SelectionSort<>();
-                    @SuppressWarnings("unchecked")
-                    ArrayList<Student> students = (ArrayList<Student>) (ArrayList<?>) objects;
-                    studentSort.sort(students);
-                    sortedObjects = new ArrayList<>(students);
+                    ParallelSorter<Student> studentSort = new ParallelSorter<>();
+                    studentSort.sort(objects);
+                    sortedObjects = new ArrayList<>(objects);
                     break;
                 case "User":
-                    SelectionSort<User> userSort = new SelectionSort<>();
-                    @SuppressWarnings("unchecked")
-                    ArrayList<User> users = (ArrayList<User>) (ArrayList<?>) objects;
-                    userSort.sort(users);
-                    sortedObjects = new ArrayList<>(users);
+                    ParallelSorter<User> userSort = new ParallelSorter<>();
+                    userSort.sort(objects);
+                    sortedObjects = new ArrayList<>(objects);
                     break;
             }
             System.out.println("Готовый список объектов (сортированный):");
