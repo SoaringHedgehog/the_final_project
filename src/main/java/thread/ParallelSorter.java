@@ -4,46 +4,50 @@ import algorithm.SelectionSort;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ParallelSorter<T extends Comparable<T>> {
-    public void sort(ArrayList<Comparable> list) {
-        int n = list.size();
-        int chunkSize = n / 2; // делим на 2 части для параллельной сортировки
-        List<Thread> threads = new ArrayList<>();
+    private final int threadCount;
 
-        // Сортируем каждую половину в отдельном потоке
-        for (int i = 0; i < 2; i++) {
-            final int start = i * chunkSize;
-            final int end = (i == 1) ? n : start + chunkSize;
-
-            Runnable task = () -> {
-                SelectionSort selectionSort = new SelectionSort();
-                selectionSort.sort(new ArrayList<>(list.subList(start, end)));
-            };
-
-            Thread thread = new Thread(task);
-            threads.add(thread);
-            thread.start();
-        }
-
-        // Ждем завершения всех потоков
-        for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.err.println("Thread was interrupted: " + e.getMessage());
-            }
-        }
-
-        // Объединение отсортированных частей
-        mergeSortedParts(list);
+    public ParallelSorter(int threadCount) {
+        this.threadCount = threadCount;
     }
 
-    private void mergeSortedParts(ArrayList<Comparable> list) {
-        // Для простоты примера просто вызовем сортировку на всем списке
-        // Это не оптимально, но достаточно для демонстрации
-        SelectionSort selectionSort = new SelectionSort();
-        selectionSort.sort(list);
+    public void sort(ArrayList<Comparable> list) {
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        int size = list.size();
+        int partSize = size / threadCount;
+
+        List<ArrayList<Comparable>> parts = new ArrayList<>();
+        for (int i = 0; i < threadCount; i++) {
+            int start = i * partSize;
+            int end = (i == threadCount - 1) ? size : start + partSize;
+            parts.add(new ArrayList<>(list.subList(start, end)));
+        }
+
+        // Сортируем каждую часть в отдельном потоке
+        for (ArrayList<Comparable> part : parts) {
+            executor.submit(() -> new SelectionSort().sort(part));
+        }
+
+        executor.shutdown();
+        while (!executor.isTerminated()) {
+            // Ожидание завершения всех потоков
+        }
+
+        // Объединяем отсортированные части
+        ArrayList<Comparable> sortedList = new ArrayList<>();
+        for (ArrayList<Comparable> part : parts) {
+            sortedList.addAll(part);
+        }
+
+        // Сортируем объединенный список, чтобы гарантировать правильный порядок
+        new SelectionSort().sort(sortedList);
+
+        // Копируем отсортированный список обратно в исходный
+        for (int i = 0; i < sortedList.size(); i++) {
+            list.set(i, sortedList.get(i));
+        }
     }
 }

@@ -28,6 +28,10 @@ public class User implements Comparable<User> {
         return this.email.compareTo(other.email);
     }
 
+    public String toString(){
+        return "[\n\tИмя: " + getName() + ",\n\tПароль: " + getPassword() + ",\n\temail: " + getEmail() + "]\n";
+    }
+
     public static class Builder {
         private String name;
         private String password;

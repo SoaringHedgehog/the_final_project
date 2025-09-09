@@ -42,7 +42,6 @@ public class ThreadCounter {
         for (int i = 0; i < results.length; i++) {
             total = total + results[i];
         }
-        System.out.println("Элемент \"" + element + "\" встречается " + total + " раз(а).");
         return total;
     }
 }
