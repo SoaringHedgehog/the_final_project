@@ -5,11 +5,12 @@ import algorithm.SelectionSort;
 import entity.Bus;
 import entity.Student;
 import entity.User;
-import input.InputFromFile;
-import input.ManualInput;
-import input.RandomInput;
+import input.*;
+
+import input.StreamRandomInput;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +56,17 @@ public class Main {
                     System.out.println("Заполнение из файла:\n" +
                             "Введите путь к файлу: ");
                     String fileName = scanner.nextLine();
-                    FileInputStream fis = new FileInputStream(fileName);
-                    switch (className){
-                        case "Bus": objects = InputFromFile.readBusesFromInputStream(fis); break;
-                        case "Student": objects = InputFromFile.readStudentsFromInputStream(fis); break;
-                        case "User": objects = InputFromFile.readUsersFromInputStream(fis); break;
+                    try {
+                        FileInputStream fis = new FileInputStream(fileName);
+                        switch (className){
+                            case "Bus": objects = StreamInputFromFile.readBusesFromInputStream(fis); break;
+                            case "Student": objects = StreamInputFromFile.readStudentsFromInputStream(fis); break;
+                            case "User": objects = StreamInputFromFile.readUsersFromInputStream(fis); break;
+                        }
+                    }
+                    catch (IOException e){
+                        System.out.println("Неправильный путь файла");
+                        System.out.println(e.getMessage());
                     }
                     break;
                 case "2":
@@ -67,9 +74,9 @@ public class Main {
                             "Введите количество объектов: ");
                     int countManualObjects = Integer.parseInt(scanner.nextLine());
                     switch (className){
-                        case "Bus": objects = ManualInput.inputBuses(countManualObjects, scanner); break;
-                        case "Student": objects = ManualInput.inputStudents(countManualObjects, scanner); break;
-                        case "User": objects = ManualInput.inputUsers(countManualObjects, scanner); break;
+                        case "Bus": objects = StreamManualInput.inputBuses(countManualObjects, scanner); break;
+                        case "Student": objects = StreamManualInput.inputStudents(countManualObjects, scanner); break;
+                        case "User": objects = StreamManualInput.inputUsers(countManualObjects, scanner); break;
                     }
                     break;
                 case "3":
@@ -77,9 +84,9 @@ public class Main {
                             "Введите количество объектов: ");
                     int countRandObjects = Integer.parseInt(scanner.nextLine());
                     switch (className){
-                        case "Bus": objects = RandomInput.generateBuses(countRandObjects); break;
-                        case "Student": objects = RandomInput.generateStudents(countRandObjects); break;
-                        case "User": objects = RandomInput.generateUsers(countRandObjects); break;
+                        case "Bus": objects = StreamRandomInput.generateBuses(countRandObjects); break;
+                        case "Student": objects = StreamRandomInput.generateStudents(countRandObjects); break;
+                        case "User": objects = StreamRandomInput.generateUsers(countRandObjects); break;
                     }
                     break;
                 default:
