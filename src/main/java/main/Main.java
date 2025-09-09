@@ -1,7 +1,9 @@
 package main;
 
 import algorithm.BinarySearch;
+import algorithm.CustomSort;
 import algorithm.SelectionSort;
+import algorithm.ThreadCounter;
 import entity.Bus;
 import entity.Student;
 import entity.User;
@@ -126,10 +128,13 @@ public class Main {
             }
             System.out.println();
             viewArrayObject(sortedObjects);
+            Comparable reqObject = BinarySearch.createReqObject(scanner, objects);
             System.out.println("Выберите пункт меню:\n" +
                     "0) Выход\n" +
                     "1) Записать полученный список в файл\n" +
-                    "2) Бинарный поиск\n");
+                    "2) Бинарный поиск\n" +
+                    "3) Кастомная сортировка" +
+                    "4) Подсчёт количества вхождеий элемента");
             String menu = scanner.nextLine();
             switch (menu){
                 case "0": return;
@@ -142,7 +147,16 @@ public class Main {
                     }
                     break;
                 case "2":
-                    viewBinarySearch(sortedObjects);
+                    viewBinarySearch(sortedObjects, reqObject);
+                    break;
+                case "3":
+                    ArrayList<Comparable> customSortedObjects = viewCustomSort(sortedObjects, reqObject, scanner);
+                    viewArrayObject(customSortedObjects);
+                    break;
+                case "4":
+                    System.out.println("Сколько потоков использовать?");
+                    int numThreads = scanner.nextInt();
+                    System.out.println("Количество вхождений элемента в коллекции: " + ThreadCounter.countOccurrences(sortedObjects, reqObject, numThreads));
                     break;
                 default:
                     System.out.println("Такого варианта нет\n");
@@ -150,40 +164,62 @@ public class Main {
         }
     }
 
-    private static void viewBinarySearch(ArrayList<Comparable> objects) {
-        System.out.println("Для поиска индекса объекта требуются значения его полей");
-        Field[] fields = objects.getFirst().getClass().getDeclaredFields();
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите значение поля " + fields[0].getName());
-        String firstfield = scanner.nextLine();
-        System.out.println("Введите значение поля " + fields[1].getName());
-        String secondfield = scanner.nextLine();
-        System.out.println("Введите значение поля " + fields[2].getName());
-        String thirdfield = scanner.nextLine();
-        Comparable reqObject = null;
-        switch (objects.getFirst().getClass().getSimpleName()){
+    private static ArrayList<Comparable> viewCustomSort(ArrayList<Comparable> sortedObjects, Comparable reqObject, Scanner scanner) {
+        ArrayList<Comparable> customSortObjects = new ArrayList<>();
+        String answer;
+        switch (sortedObjects.getFirst().getClass().getSimpleName()){
             case "Bus":
-                reqObject = new Bus.Builder()
-                        .setNumber(Integer.parseInt(firstfield))
-                        .setModel(secondfield)
-                        .setMileage(Integer.parseInt(thirdfield))
-                        .build();
+                ArrayList<Bus> buses = (ArrayList<Bus>) (ArrayList<?>) sortedObjects;
+                System.out.println("Выберите поле для сортировки: " +
+                        "1)number " +
+                        "2)model " +
+                        "3)mileage");
+                answer = scanner.nextLine();
+                switch (answer){
+                    case "1": CustomSort.sort(buses, Bus::getNumber); break;
+                    case "2": CustomSort.sort(buses, Bus::getModel);break;
+                    case "3": CustomSort.sort(buses, Bus::getMileage);break;
+                    default: System.out.println("Неверный вариант"); break;
+                }
+                customSortObjects = new ArrayList<>(buses);
                 break;
             case "Student":
-                reqObject = new Student.Builder()
-                        .setGroupNumber(Integer.parseInt(firstfield))
-                        .setAverageScore(Double.parseDouble(secondfield))
-                        .setGradeBookNumber(Integer.parseInt(thirdfield))
-                        .build();
+                ArrayList<Student> students = (ArrayList<Student>) (ArrayList<?>) sortedObjects;
+                System.out.println("Выберите поле для сортировки: " +
+                        "1)groupNumber " +
+                        "2)averageScore " +
+                        "3)gradeBookNumber");
+                answer = scanner.nextLine();
+                switch (answer){
+                    case "1": CustomSort.sort(students, Student::getGroupNumber); break;
+                    case "2": CustomSort.sort(students, Student::getAverageScore);break;
+                    case "3": CustomSort.sort(students, Student::getGradeBookNumber);break;
+                    default: System.out.println("Неверный вариант"); break;
+                }
+                customSortObjects = new ArrayList<>(students);
                 break;
             case "User":
-                reqObject = new User.Builder()
-                        .setName(firstfield)
-                        .setPassword(secondfield)
-                        .setEmail(thirdfield)
-                        .build();
+                SelectionSort<User> userSort = new SelectionSort<>();
+                ArrayList<User> users = (ArrayList<User>) (ArrayList<?>) sortedObjects;
+                System.out.println("Выберите поле для сортировки: " +
+                        "1)name " +
+                        "2)password " +
+                        "3)email");
+                answer = scanner.nextLine();
+                switch (answer){
+                    case "1": CustomSort.sort(users, User::getPassword  ); break;
+                    case "2": CustomSort.sort(users, User::getPassword );break;
+                    case "3": CustomSort.sort(users, User::getEmail );break;
+                    default: System.out.println("Неверный вариант"); break;
+                }
+                customSortObjects = new ArrayList<>(users);
                 break;
         }
+        return customSortObjects;
+    }
+
+    private static void viewBinarySearch(ArrayList<Comparable> objects, Comparable reqObject) {
+        Scanner scanner = new Scanner(System.in);
         int indexOfRequiredObject = BinarySearch.indexByObject(objects, reqObject) + 1;
         if(indexOfRequiredObject == 0){System.out.println("Подобный объект не найден");}
         else {

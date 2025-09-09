@@ -2,7 +2,7 @@ package algorithm;
 import java.util.*;
 
 public class ThreadCounter {
-    public static <T> int countOccurrences(List<T> list, T element, int numThreads) throws InterruptedException {
+    public static <T> int countOccurrences(ArrayList<T> list, T element, int numThreads) throws InterruptedException {
         int size = list.size();
         int elementsPerThread = (int) Math.ceil((double) size / numThreads);
 
