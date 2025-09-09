@@ -8,12 +8,12 @@ import entity.User;
 import input.*;
 
 import input.StreamRandomInput;
+import output.FileWriterUtil;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -126,7 +126,27 @@ public class Main {
             }
             System.out.println();
             viewArrayObject(sortedObjects);
-            viewBinarySearch(sortedObjects);
+            System.out.println("Выберите пункт меню:\n" +
+                    "0) Выход\n" +
+                    "1) Записать полученный список в файл\n" +
+                    "2) Бинарный поиск\n");
+            String menu = scanner.nextLine();
+            switch (menu){
+                case "0": return;
+                case "1":
+                    switch (className){
+                        case "Bus": FileWriterUtil.appendBusesToFile(sortedObjects);
+                            break;
+                        case "Student": FileWriterUtil.appendStudentsToFile(sortedObjects);
+                        case "User": FileWriterUtil.appendUsersToFile(sortedObjects);
+                    }
+                    break;
+                case "2":
+                    viewBinarySearch(sortedObjects);
+                    break;
+                default:
+                    System.out.println("Такого варианта нет\n");
+            }
         }
     }
 
@@ -166,7 +186,26 @@ public class Main {
         }
         int indexOfRequiredObject = BinarySearch.indexByObject(objects, reqObject) + 1;
         if(indexOfRequiredObject == 0){System.out.println("Подобный объект не найден");}
-            else {System.out.println("Искомый объект находится на " +  indexOfRequiredObject + " месте в отсортированном списке");}
+        else {
+            System.out.println("Искомый объект находится на " +  indexOfRequiredObject + " месте в отсортированном списке");
+            System.out.println("Выберите пункт меню:\n" +
+                    "0) Выход\n" +
+                    "1) Записать значение в файл\n" +
+                    "2) Очистить файл и записать в него значение\n");
+            String menu = scanner.nextLine();
+            switch (menu){
+                case "0": return;
+                case "1":
+                    FileWriterUtil.appendNumberToFile(indexOfRequiredObject);
+                    break;
+                case "2":
+                    FileWriterUtil.clearFile();
+                    FileWriterUtil.appendNumberToFile(indexOfRequiredObject);
+                    break;
+                default:
+                    System.out.println("Такого пункта нет\n");
+            }
+        }
     }
 
     private static void viewArrayObject(ArrayList<Comparable> objects) throws Exception {
