@@ -119,20 +119,4 @@ public class ManualInput {
         }
         return students;
     }
-
-    public static int readIntWithPrompt(Scanner scanner, String prompt) {
-        int value;
-        while (true) {
-            System.out.print(prompt);
-            if (scanner.hasNextInt()) {
-                value = scanner.nextInt();
-                scanner.nextLine();
-                break;
-            } else {
-                System.out.println("Ошибка! Введите целое число.");
-                scanner.nextLine();
-            }
-        }
-        return value;
-    }
 }
