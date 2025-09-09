@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class InputFromFile {
 
@@ -31,7 +30,7 @@ public class InputFromFile {
                             .build();
                     buses.add(bus);
                 } catch (Exception e) {
-                    // пропускаем ошибочные строки
+                    
                 }
             }
         } catch (IOException e) {
@@ -58,7 +57,7 @@ public class InputFromFile {
                             .build();
                     users.add(user);
                 } catch (Exception e) {
-                    // Пропускаем строки с ошибками валидации
+                    
                 }
             }
         } catch (IOException e) {
@@ -85,7 +84,7 @@ public class InputFromFile {
                             .build();
                     students.add(student);
                 } catch (Exception e) {
-                    // пропускаем ошибочные строки
+                    
                 }
             }
         } catch (IOException e) {
