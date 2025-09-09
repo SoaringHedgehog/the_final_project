@@ -7,11 +7,13 @@ import entity.Student;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FileWriterUtil {
+    static String fileName = "src\\main\\resources\\outputObjects.txt";
 
-    public static void appendBusesToFile(ArrayList<Comparable> buses, String fileName) {
+    public static void appendBusesToFile(ArrayList<Comparable> buses) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Object obj : buses) {
                 Bus bus = (Bus) obj;
@@ -25,7 +27,7 @@ public class FileWriterUtil {
         }
     }
 
-    public static void appendUsersToFile(ArrayList<Comparable> users, String fileName) {
+    public static void appendUsersToFile(ArrayList<Comparable> users) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Object obj : users) {
                 User user = (User) obj;
@@ -39,7 +41,7 @@ public class FileWriterUtil {
         }
     }
 
-    public static void appendStudentsToFile(ArrayList<Comparable> students, String fileName) {
+    public static void appendStudentsToFile(ArrayList<Comparable> students) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Object obj : students) {
                 Student student = (Student) obj;
@@ -53,7 +55,7 @@ public class FileWriterUtil {
         }
     }
 
-    public static void appendNumberToFile(int number, String fileName) {
+    public static void appendNumberToFile(int number) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(Integer.toString(number));
             writer.newLine();
@@ -63,9 +65,8 @@ public class FileWriterUtil {
         }
     }
 
-    public static void clearFile(String fileName) {
+    public static void clearFile() {
         try (FileWriter fw = new FileWriter(fileName, false)) { 
-
         } catch (IOException e) {
             System.err.println("Ошибка очистки файла: " + e.getMessage());
         }

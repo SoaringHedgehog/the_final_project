@@ -53,15 +53,12 @@ public class Main {
             switch (answer){
                 case "0": return;
                 case "1":
-                    System.out.println("Заполнение из файла:\n" +
-                            "Введите путь к файлу: ");
-                    String fileName = scanner.nextLine();
+                    System.out.println("Заполнение из файла:");
                     try {
-                        FileInputStream fis = new FileInputStream(fileName);
                         switch (className){
-                            case "Bus": objects = StreamInputFromFile.readBusesFromInputStream(fis); break;
-                            case "Student": objects = StreamInputFromFile.readStudentsFromInputStream(fis); break;
-                            case "User": objects = StreamInputFromFile.readUsersFromInputStream(fis); break;
+                            case "Bus": objects = StreamInputFromFile.readBusesFromInputStream(new FileInputStream("src/main/resources/buses.txt")); break;
+                            case "Student": objects = StreamInputFromFile.readStudentsFromInputStream(new FileInputStream("src/main/resources/students.txt")); break;
+                            case "User": objects = StreamInputFromFile.readUsersFromInputStream(new FileInputStream("src/main/resources/users.txt")); break;
                         }
                     }
                     catch (IOException e){
