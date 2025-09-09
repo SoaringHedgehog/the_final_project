@@ -167,13 +167,11 @@ public class Main {
                 ArrayList<Bus> buses = (ArrayList<Bus>) (ArrayList<?>) sortedObjects;
                 System.out.println("Выберите поле для сортировки: " +
                         "1)number " +
-                        "2)model " +
-                        "3)mileage");
+                        "2)mileage");
                 answer = scanner.nextLine();
                 switch (answer){
                     case "1": CustomSort.sort(buses, Bus::getNumber); break;
-                    case "2": CustomSort.sort(buses, Bus::getModel);break;
-                    case "3": CustomSort.sort(buses, Bus::getMileage);break;
+                    case "2": CustomSort.sort(buses, Bus::getMileage);break;
                     default: System.out.println("Неверный вариант"); break;
                 }
                 customSortObjects = new ArrayList<>(buses);
@@ -182,32 +180,17 @@ public class Main {
                 ArrayList<Student> students = (ArrayList<Student>) (ArrayList<?>) sortedObjects;
                 System.out.println("Выберите поле для сортировки: " +
                         "1)groupNumber " +
-                        "2)averageScore " +
-                        "3)gradeBookNumber");
+                        "2)gradeBookNumber");
                 answer = scanner.nextLine();
                 switch (answer){
                     case "1": CustomSort.sort(students, Student::getGroupNumber); break;
-                    case "2": CustomSort.sort(students, Student::getAverageScore);break;
-                    case "3": CustomSort.sort(students, Student::getGradeBookNumber);break;
+                    case "2": CustomSort.sort(students, Student::getGradeBookNumber);break;
                     default: System.out.println("Неверный вариант"); break;
                 }
                 customSortObjects = new ArrayList<>(students);
                 break;
             case "User":
-                SelectionSort<User> userSort = new SelectionSort<>();
-                ArrayList<User> users = (ArrayList<User>) (ArrayList<?>) sortedObjects;
-                System.out.println("Выберите поле для сортировки: " +
-                        "1)name " +
-                        "2)password " +
-                        "3)email");
-                answer = scanner.nextLine();
-                switch (answer){
-                    case "1": CustomSort.sort(users, User::getPassword  ); break;
-                    case "2": CustomSort.sort(users, User::getPassword );break;
-                    case "3": CustomSort.sort(users, User::getEmail );break;
-                    default: System.out.println("Неверный вариант"); break;
-                }
-                customSortObjects = new ArrayList<>(users);
+                System.out.println("Данный экземпляр не имеет числовыз полей. Кастомная сортировка невозможна");
                 break;
         }
         return customSortObjects;
