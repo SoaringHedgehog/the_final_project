@@ -70,13 +70,30 @@ public class Main {
                     }
                     break;
                 case "2":
-                    System.out.println("Заполнение вручную:\n" +
-                            "Введите количество объектов: ");
-                    int countManualObjects = Integer.parseInt(scanner.nextLine());
-                    switch (className){
-                        case "Bus": objects = StreamManualInput.inputBuses(countManualObjects, scanner); break;
-                        case "Student": objects = StreamManualInput.inputStudents(countManualObjects, scanner); break;
-                        case "User": objects = StreamManualInput.inputUsers(countManualObjects, scanner); break;
+                    int countManualObjects = 0;
+                    loop : while (true) {
+                        System.out.println("Заполнение вручную:\n" +
+                                "Введите количество объектов: ");
+                        try{countManualObjects = scanner.nextInt();
+                        } catch (Exception e) {
+                            System.out.println("Неверный тип данных");
+                            scanner.nextLine();
+                            continue;
+                        }
+                        if(countManualObjects < 1){
+                            continue;
+                        }
+                        switch (className) {
+                            case "Bus":
+                                objects = StreamManualInput.inputBuses(countManualObjects, scanner);
+                                break loop;
+                            case "Student":
+                                objects = StreamManualInput.inputStudents(countManualObjects, scanner);
+                                break loop;
+                            case "User":
+                                objects = StreamManualInput.inputUsers(countManualObjects, scanner);
+                                break loop;
+                        }
                     }
                     break;
                 case "3":
