@@ -11,7 +11,7 @@ import java.util.List;
 
 public class FileWriterUtil {
 
-    public static void appendBusesToFile(List buses, String fileName) {
+    public static void appendBusesToFile(ArrayList<Comparable> buses, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Object obj : buses) {
                 Bus bus = (Bus) obj;
@@ -25,7 +25,7 @@ public class FileWriterUtil {
         }
     }
 
-    public static void appendUsersToFile(List users, String fileName) {
+    public static void appendUsersToFile(ArrayList<Comparable> users, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Object obj : users) {
                 User user = (User) obj;
@@ -39,7 +39,7 @@ public class FileWriterUtil {
         }
     }
 
-    public static void appendStudentsToFile(List students, String fileName) {
+    public static void appendStudentsToFile(ArrayList<Comparable> students, String fileName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Object obj : students) {
                 Student student = (Student) obj;
